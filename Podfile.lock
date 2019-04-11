@@ -1,0 +1,22 @@
+PODS:
+  - Cuckoo (0.12.1)
+  - SDWebImage (4.4.6):
+    - SDWebImage/Core (= 4.4.6)
+  - SDWebImage/Core (4.4.6)
+
+DEPENDENCIES:
+  - Cuckoo
+  - SDWebImage
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Cuckoo
+    - SDWebImage
+
+SPEC CHECKSUMS:
+  Cuckoo: 2f10364798baa4b0d4aacabfa475249cf29977bc
+  SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
+
+PODFILE CHECKSUM: e314ddfb2aaa59268f40f7a78cc6f3375ae8f2bc
+
+COCOAPODS: 1.5.3

@@ -13,7 +13,8 @@
 import UIKit
 
 @objc protocol BeerListRoutingLogic {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func handleRoute(segue: UIStoryboardSegue)
+    func routeToDetails()
 }
 
 protocol BeerListDataPassing {
@@ -26,32 +27,22 @@ class BeerListRouter: NSObject, BeerListRoutingLogic, BeerListDataPassing {
     
     // MARK: Routing
     
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
-    //{
-    //  if let segue = segue {
-    //    let destinationVC = segue.destination as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //  } else {
-    //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-    //  }
-    //}
+    func routeToDetails() {
+        viewController?.performSegue(withIdentifier: "detailsSegue", sender: nil)
+    }
     
-    // MARK: Navigation
-    
-    //func navigateToSomewhere(source: BeerListViewController, destination: SomewhereViewController)
-    //{
-    //  source.show(destination, sender: nil)
-    //}
+    func handleRoute(segue: UIStoryboardSegue) {
+        if let sourceDS = dataStore,
+            let destinationVC = segue.destination as? BeerDetailsViewController,
+            var destinationDS = destinationVC.router?.dataStore {
+            passDataToDetails(source: sourceDS, destination: &destinationDS)
+        }
+    }
     
     // MARK: Passing data
     
-    //func passDataToSomewhere(source: BeerListDataStore, destination: inout SomewhereDataStore)
-    //{
-    //  destination.name = source.name
-    //}
+    func passDataToDetails(source: BeerListDataStore, destination: inout BeerDetailsDataStore) {
+        destination.beer = source.selectedBeer
+    }
+
 }

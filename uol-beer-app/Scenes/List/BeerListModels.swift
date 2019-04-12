@@ -15,12 +15,8 @@ import UIKit
 enum BeerList {
     // MARK: Use cases
     
-    enum Something {
-        struct Request {
-        }
-        struct Response {
-        }
-        struct ViewModel {
-        }
+    struct Request {
+        var page: Int
+        var itemsPerPage: Int
     }
 }

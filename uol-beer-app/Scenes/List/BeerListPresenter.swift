@@ -13,16 +13,23 @@
 import UIKit
 
 protocol BeerListPresentationLogic {
-    func presentSomething(response: BeerList.Something.Response)
+    func showLoading()
+    func stopLoading()
+    func presentBeers()
 }
 
 class BeerListPresenter: BeerListPresentationLogic {
     weak var viewController: BeerListDisplayLogic?
     
-    // MARK: Do something
+    func presentBeers() {
+        viewController?.displayBeers()
+    }
     
-    func presentSomething(response: BeerList.Something.Response) {
-        let viewModel = BeerList.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
+    func showLoading() {
+        viewController?.showLoadingView()
+    }
+    
+    func stopLoading() {
+        viewController?.hideLoadingView()
     }
 }

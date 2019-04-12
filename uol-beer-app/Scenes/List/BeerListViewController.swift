@@ -12,13 +12,23 @@
 
 import UIKit
 
-protocol BeerListDisplayLogic: class {
-    func displaySomething(viewModel: BeerList.Something.ViewModel)
+protocol BeerListDisplayLogic: class, BaseDisplayLogic {
+    func displayBeers()
 }
 
 class BeerListViewController: UIViewController {
+    
+    // MARK: Clean Swift
+    
     var interactor: BeerListBusinessLogic?
     var router: (NSObjectProtocol & BeerListRoutingLogic & BeerListDataPassing)?
+    
+    // MARK: IBOutlets
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    // MARK: Properties
+    
     
     // MARK: Object lifecycle
     
@@ -47,38 +57,41 @@ class BeerListViewController: UIViewController {
         router.dataStore = interactor
     }
     
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
-    
     // MARK: View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        
+        setupNavigationBar()
+        setupCollectionView()
+        
+        interactor?.getBeerList(next: false)
     }
     
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething() {
-        let request = BeerList.Something.Request()
-        interactor?.doSomething(request: request)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
+    
+    private func setupNavigationBar() {
+        definesPresentationContext = true
+    }
+    
+    private func setupCollectionView() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(UINib(nibName: "BeerCell", bundle: nil), forCellWithReuseIdentifier: "BeerCell")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        router?.handleRoute(segue: segue)
+    }
+    
 }
 
 extension BeerListViewController: BeerListDisplayLogic  {
     
-    func displaySomething(viewModel: BeerList.Something.ViewModel) {
-        //nameTextField.text = viewModel.name
+    func displayBeers() {
+        collectionView.reloadData()
     }
     
 }

@@ -13,16 +13,26 @@
 import UIKit
 
 protocol BeerDetailsPresentationLogic {
-    func presentSomething(response: BeerDetails.Something.Response)
+    func presentDetails(response: BeerDetails.Response)
 }
 
 class BeerDetailsPresenter: BeerDetailsPresentationLogic {
     weak var viewController: BeerDetailsDisplayLogic?
     
-    // MARK: Do something
-    
-    func presentSomething(response: BeerDetails.Something.Response) {
-        let viewModel = BeerDetails.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
+    func presentDetails(response: BeerDetails.Response) {
+        var details = ""
+        if let abv = response.beer.abv {
+            details.append("ABV: \(abv)% \n")
+        }
+        if let ibu = response.beer.ibu {
+            details.append("IBU: \(ibu)% \n")
+        }
+        if let description = response.beer.description {
+            details.append("\n\(description)")
+        }
+        
+        let viewModel = BeerDetails.ViewModel(imageUrl: response.beer.imageUrl, name: response.beer.name, tagline: response.beer.tagline, details: details)
+        
+        viewController?.displayDetails(viewModel: viewModel)
     }
 }

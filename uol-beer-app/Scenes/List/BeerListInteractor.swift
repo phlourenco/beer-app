@@ -10,28 +10,80 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
+import Foundation
 
 protocol BeerListBusinessLogic {
-    func doSomething(request: BeerList.Something.Request)
+    func getBeerList(next: Bool)
+    func getSections() -> [SectionBase]
+    func selectBeer(index: Int)
 }
 
 protocol BeerListDataStore {
-    //var name: String { get set }
+    var selectedBeer: Beer? { get set }
 }
 
 class BeerListInteractor: BeerListBusinessLogic, BeerListDataStore {
+    
+    // MARK: Clean Swift
+    
     var presenter: BeerListPresentationLogic?
-    var worker: BeerListWorker?
-    //var name: String = ""
+    var worker: BeerListWorker
     
-    // MARK: Do something
+    // MARK: Properties
     
-    func doSomething(request: BeerList.Something.Request) {
-        worker = BeerListWorker()
-        worker?.doSomeWork()
-        
-        let response = BeerList.Something.Response()
-        presenter?.presentSomething(response: response)
+    var beers: [Beer] = []
+    var selectedBeer: Beer?
+    let beersPerPage: Int = 20
+    var canFetchMore: Bool = true
+    
+    // MARK: Methods
+    
+    init() {
+        worker = BeerListWorker(dataSource: BeerAPI())
     }
+    
+    func getBeerList(next: Bool) {
+        guard canFetchMore else { return }
+        
+        presenter?.showLoading()
+        
+        let page = next ? getNextPageNumber() : nil
+        if !next {
+            beers = []
+        }
+        
+        worker.getBeers(page: page, itemsPerPage: beersPerPage)
+            .done(handleBeerList)
+            .catch(handleError)
+            .finally {
+                self.presenter?.stopLoading()
+            }
+    }
+    
+    private func handleBeerList(_ beers: [Beer]) {
+        if beers.count > 0 {
+            self.beers.append(contentsOf: beers)
+            presenter?.presentBeers()
+        } else {
+            canFetchMore = false
+        }
+    }
+    
+    private func handleError(_ error: Error) {
+        print(error)
+    }
+    
+    func getSections() -> [SectionBase] {
+        let beerSection = BeerSection(beers: beers)
+        return [beerSection]
+    }
+    
+    private func getNextPageNumber() -> Int {
+        return (beers.count / beersPerPage) + 1
+    }
+    
+    func selectBeer(index: Int) {
+        selectedBeer = beers[index]
+    }
+    
 }

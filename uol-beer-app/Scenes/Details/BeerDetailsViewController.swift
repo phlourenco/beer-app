@@ -11,14 +11,27 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol BeerDetailsDisplayLogic: class {
-    func displaySomething(viewModel: BeerDetails.Something.ViewModel)
+    func displayDetails(viewModel: BeerDetails.ViewModel)
 }
 
 class BeerDetailsViewController: UIViewController {
+    
+    // MARK: Clean Swift
+    
     var interactor: BeerDetailsBusinessLogic?
     var router: (NSObjectProtocol & BeerDetailsRoutingLogic & BeerDetailsDataPassing)?
+    
+    // MARK: IBOutlets
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var taglineLabel: UILabel!
+    @IBOutlet weak var detailsLabel: UILabel!
+    
+    // MARK: Properties
+    
     
     // MARK: Object lifecycle
     
@@ -47,38 +60,22 @@ class BeerDetailsViewController: UIViewController {
         router.dataStore = interactor
     }
     
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
-    
     // MARK: View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        interactor?.getDetails()
     }
     
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething() {
-        let request = BeerDetails.Something.Request()
-        interactor?.doSomething(request: request)
-    }
 }
 
 extension BeerDetailsViewController: BeerDetailsDisplayLogic  {
     
-    func displaySomething(viewModel: BeerDetails.Something.ViewModel) {
-        //nameTextField.text = viewModel.name
+    func displayDetails(viewModel: BeerDetails.ViewModel) {
+        navigationItem.title = viewModel.name
+        imageView.sd_setImage(with: viewModel.imageUrl, completed: nil)
+        taglineLabel.text = viewModel.tagline
+        detailsLabel.text = viewModel.details
     }
     
 }

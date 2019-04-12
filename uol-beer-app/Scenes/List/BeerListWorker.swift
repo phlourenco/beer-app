@@ -11,8 +11,18 @@
 //
 
 import UIKit
+import PromiseKit
 
 class BeerListWorker {
-    func doSomeWork() {
+    
+    var dataSource: BeerAPIDataSource
+    
+    init(dataSource: BeerAPIDataSource) {
+        self.dataSource = dataSource
     }
+    
+    func getBeers(page: Int? = nil, itemsPerPage: Int? = nil) -> Promise<[Beer]> {
+        return dataSource.getBeers(page: page, itemsPerPage: itemsPerPage)
+    }
+    
 }

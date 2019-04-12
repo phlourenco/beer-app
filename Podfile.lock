@@ -1,22 +1,34 @@
 PODS:
   - Cuckoo (0.12.1)
+  - PromiseKit (6.8.3):
+    - PromiseKit/CorePromise (= 6.8.3)
+    - PromiseKit/Foundation (= 6.8.3)
+    - PromiseKit/UIKit (= 6.8.3)
+  - PromiseKit/CorePromise (6.8.3)
+  - PromiseKit/Foundation (6.8.3):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.8.3):
+    - PromiseKit/CorePromise
   - SDWebImage (4.4.6):
     - SDWebImage/Core (= 4.4.6)
   - SDWebImage/Core (4.4.6)
 
 DEPENDENCIES:
   - Cuckoo
+  - PromiseKit
   - SDWebImage
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Cuckoo
+    - PromiseKit
     - SDWebImage
 
 SPEC CHECKSUMS:
   Cuckoo: 2f10364798baa4b0d4aacabfa475249cf29977bc
+  PromiseKit: 94c6e781838c5bf4717677d0d882b0e7250c80fc
   SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
 
-PODFILE CHECKSUM: e314ddfb2aaa59268f40f7a78cc6f3375ae8f2bc
+PODFILE CHECKSUM: a490e1b481e211771825c8576c05c1a4f8783086
 
 COCOAPODS: 1.5.3

@@ -15,12 +15,18 @@ import UIKit
 enum BeerDetails {
     // MARK: Use cases
     
-    enum Something {
-        struct Request {
-        }
-        struct Response {
-        }
-        struct ViewModel {
-        }
+    struct Request {
     }
+    
+    struct Response {
+        var beer: Beer
+    }
+    
+    struct ViewModel {
+        var imageUrl: URL?
+        var name: String
+        var tagline: String
+        var details: String?
+    }
+    
 }

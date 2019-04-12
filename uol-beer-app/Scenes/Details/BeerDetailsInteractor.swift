@@ -13,25 +13,21 @@
 import UIKit
 
 protocol BeerDetailsBusinessLogic {
-    func doSomething(request: BeerDetails.Something.Request)
+    func getDetails()
 }
 
 protocol BeerDetailsDataStore {
-    //var name: String { get set }
+    var beer: Beer? { get set }
 }
 
 class BeerDetailsInteractor: BeerDetailsBusinessLogic, BeerDetailsDataStore {
     var presenter: BeerDetailsPresentationLogic?
     var worker: BeerDetailsWorker?
-    //var name: String = ""
     
-    // MARK: Do something
+    var beer: Beer?
     
-    func doSomething(request: BeerDetails.Something.Request) {
-        worker = BeerDetailsWorker()
-        worker?.doSomeWork()
-        
-        let response = BeerDetails.Something.Response()
-        presenter?.presentSomething(response: response)
+    func getDetails() {
+        guard let beer = beer else { return }
+        presenter?.presentDetails(response: BeerDetails.Response(beer: beer))
     }
 }

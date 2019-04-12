@@ -7,6 +7,7 @@ target 'uol-beer-app' do
 
   # Pods for uol-beer-app
   pod 'SDWebImage'
+  pod 'PromiseKit'
 
   target 'uol-beer-appTests' do
     inherit! :search_paths

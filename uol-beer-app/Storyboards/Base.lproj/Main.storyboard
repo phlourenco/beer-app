@@ -25,7 +25,7 @@
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="5" minY="10" maxX="5" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
@@ -41,11 +41,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Cervejas" id="CYC-Lx-ntF"/>
                     <connections>
+                        <outlet property="collectionView" destination="gbH-TF-FxD" id="UgH-86-D9N"/>
                         <segue destination="jAg-1t-C80" kind="show" identifier="detailsSegue" id="qJF-9a-1tf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="164" y="136"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fUy-ks-12X">
@@ -75,22 +77,22 @@
                                 <rect key="frame" x="0.0" y="116" width="375" height="551"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxf-T7-LIs">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="281"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="291"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zt6-TS-tG4">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                                <rect key="frame" x="0.0" y="10" width="375" height="200"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="IWy-qd-cmf"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nome" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87N-BQ-6AE">
-                                                <rect key="frame" x="8" y="208" width="359" height="25.5"/>
+                                                <rect key="frame" x="8" y="218" width="359" height="25.5"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="21"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detalhes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDh-cU-WOc">
-                                                <rect key="frame" x="8" y="253.5" width="359" height="19.5"/>
+                                                <rect key="frame" x="8" y="263.5" width="359" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -105,7 +107,7 @@
                                             <constraint firstItem="zt6-TS-tG4" firstAttribute="leading" secondItem="bxf-T7-LIs" secondAttribute="leading" id="H3b-Pm-wJC"/>
                                             <constraint firstItem="BDh-cU-WOc" firstAttribute="top" secondItem="87N-BQ-6AE" secondAttribute="bottom" constant="20" id="Wo6-uR-kWa"/>
                                             <constraint firstAttribute="trailing" secondItem="87N-BQ-6AE" secondAttribute="trailing" constant="8" id="j8L-hN-FQI"/>
-                                            <constraint firstItem="zt6-TS-tG4" firstAttribute="top" secondItem="bxf-T7-LIs" secondAttribute="top" id="uOx-Fr-0D8"/>
+                                            <constraint firstItem="zt6-TS-tG4" firstAttribute="top" secondItem="bxf-T7-LIs" secondAttribute="top" constant="10" id="uOx-Fr-0D8"/>
                                             <constraint firstItem="87N-BQ-6AE" firstAttribute="leading" secondItem="bxf-T7-LIs" secondAttribute="leading" constant="8" id="uby-T9-jcG"/>
                                             <constraint firstItem="87N-BQ-6AE" firstAttribute="top" secondItem="zt6-TS-tG4" secondAttribute="bottom" constant="8" id="w60-UI-xDX"/>
                                         </constraints>
@@ -130,10 +132,15 @@
                         <viewLayoutGuide key="safeArea" id="EoG-gg-hz0"/>
                     </view>
                     <navigationItem key="navigationItem" title="Detalhes" id="Sbi-uE-8bH"/>
+                    <connections>
+                        <outlet property="detailsLabel" destination="BDh-cU-WOc" id="dUz-Sp-c0q"/>
+                        <outlet property="imageView" destination="zt6-TS-tG4" id="GB3-ev-Gqe"/>
+                        <outlet property="taglineLabel" destination="87N-BQ-6AE" id="4J4-3c-DqX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a6W-g8-REG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="897" y="137"/>
+            <point key="canvasLocation" x="996" y="136"/>
         </scene>
     </scenes>
 </document>

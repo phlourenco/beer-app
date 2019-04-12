@@ -9,26 +9,22 @@
 import UIKit
 
 protocol BaseDisplayLogic {
-    func showLoadingView()
-    func hideLoadingView()
+    func showError(title: String?, message: String?, tryAgainAction: (()->Void)?)
 }
 
 extension BaseDisplayLogic where Self: UIViewController {
-    
-    func showLoadingView() {
-        let blackView = UIView(frame: self.view.bounds)
-        blackView.restorationIdentifier = "blackView"
-        blackView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        self.view.addSubview(blackView)
-        
-        let activityIndicator = UIActivityIndicatorView(frame: self.view.bounds)
-        activityIndicator.style = .white
-        activityIndicator.startAnimating()
-        blackView.addSubview(activityIndicator)
-    }
-    
-    func hideLoadingView() {
-        self.view.subviews.first(where: { $0.restorationIdentifier == "blackView" })?.removeFromSuperview()
+
+    func showError(title: String?, message: String?, tryAgainAction: (()->Void)?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        if let tryAgainAction = tryAgainAction {
+            alertController.addAction(UIAlertAction(title: "Tentar novamente", style: .default, handler: { alert in
+                tryAgainAction()
+            }))
+        }
+        alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+
+        self.present(alertController, animated: true, completion: nil)
     }
     
 }

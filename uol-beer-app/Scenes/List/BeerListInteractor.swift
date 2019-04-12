@@ -44,9 +44,7 @@ class BeerListInteractor: BeerListBusinessLogic, BeerListDataStore {
     
     func getBeerList(next: Bool) {
         guard canFetchMore else { return }
-        
-        presenter?.showLoading()
-        
+
         let page = next ? getNextPageNumber() : nil
         if !next {
             beers = []
@@ -55,9 +53,6 @@ class BeerListInteractor: BeerListBusinessLogic, BeerListDataStore {
         worker.getBeers(page: page, itemsPerPage: beersPerPage)
             .done(handleBeerList)
             .catch(handleError)
-            .finally {
-                self.presenter?.stopLoading()
-            }
     }
     
     private func handleBeerList(_ beers: [Beer]) {
@@ -70,7 +65,7 @@ class BeerListInteractor: BeerListBusinessLogic, BeerListDataStore {
     }
     
     private func handleError(_ error: Error) {
-        print(error)
+        presenter?.presentError(error: error, tryAgainAction: nil)
     }
     
     func getSections() -> [SectionBase] {

@@ -13,9 +13,8 @@
 import UIKit
 
 protocol BeerListPresentationLogic {
-    func showLoading()
-    func stopLoading()
     func presentBeers()
+    func presentError(error: Error, tryAgainAction: (()->())?)
 }
 
 class BeerListPresenter: BeerListPresentationLogic {
@@ -24,12 +23,8 @@ class BeerListPresenter: BeerListPresentationLogic {
     func presentBeers() {
         viewController?.displayBeers()
     }
-    
-    func showLoading() {
-        viewController?.showLoadingView()
-    }
-    
-    func stopLoading() {
-        viewController?.hideLoadingView()
+
+    func presentError(error: Error, tryAgainAction: (()->())?) {
+        viewController?.showError(title: nil, message: error.localizedDescription, tryAgainAction: tryAgainAction)
     }
 }

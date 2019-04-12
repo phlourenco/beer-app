@@ -22,7 +22,7 @@ class BeerDetailsViewController: UIViewController {
     // MARK: Clean Swift
     
     var interactor: BeerDetailsBusinessLogic?
-    var router: (NSObjectProtocol & BeerDetailsRoutingLogic & BeerDetailsDataPassing)?
+    var router: (NSObjectProtocol & BeerDetailsDataPassing)?
     
     // MARK: IBOutlets
     

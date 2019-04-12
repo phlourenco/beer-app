@@ -12,9 +12,11 @@ import UIKit
 class BeerCellViewModel: CellViewModel {
     var name: String
     var imageUrl: URL?
+    var abv: Double?
     
-    init(name: String, imageUrl: URL?) {
+    init(name: String, abv: Double?, imageUrl: URL?) {
         self.name = name
+        self.abv = abv
         self.imageUrl = imageUrl
     }
 }
@@ -36,7 +38,7 @@ class BeerSection: SectionBase {
     }
     
     func getViewModel(forRow row: Int) -> CellViewModel {
-        return BeerCellViewModel(name: beers[row].name, imageUrl: beers[row].imageUrl)
+        return BeerCellViewModel(name: beers[row].name, abv: beers[row].abv, imageUrl: beers[row].imageUrl)
     }
     
 }

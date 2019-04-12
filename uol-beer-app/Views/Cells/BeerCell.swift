@@ -15,6 +15,7 @@ class BeerCell: BaseCollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var abvLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,15 +26,22 @@ class BeerCell: BaseCollectionViewCell {
         super.prepareForReuse()
         imageView.image = nil
         nameLabel.text = ""
+        abvLabel.isHidden = true
     }
     
     override func configure(viewModel: CellViewModel) {
         guard let viewModel = viewModel as? BeerCellViewModel else { return }
         
+        nameLabel.text = viewModel.name
+        
+        if let abv = viewModel.abv {
+            abvLabel.isHidden = false
+            abvLabel.text = "\(abv)%"
+        }
+        
         if let url = viewModel.imageUrl {
             imageView.sd_setImage(with: url, completed: nil)
         }
-        nameLabel.text = viewModel.name
     }
 
 }

@@ -14,9 +14,10 @@ import UIKit
 
 protocol BeerListDisplayLogic: class, BaseDisplayLogic {
     func displayBeers()
+    func displayBeerDetails()
 }
 
-class BeerListViewController: UIViewController {
+class BeerListViewController: UIViewController, BeerListDisplayLogic {
     
     // MARK: Clean Swift
     
@@ -86,12 +87,12 @@ class BeerListViewController: UIViewController {
         router?.handleRoute(segue: segue)
     }
     
-}
-
-extension BeerListViewController: BeerListDisplayLogic  {
-    
     func displayBeers() {
         collectionView.reloadData()
+    }
+    
+    func displayBeerDetails() {
+        router?.routeToDetails()
     }
     
 }

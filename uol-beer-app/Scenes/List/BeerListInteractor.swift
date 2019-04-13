@@ -33,13 +33,13 @@ class BeerListInteractor: BeerListBusinessLogic, BeerListDataStore {
     
     var beers: [Beer] = []
     var selectedBeer: Beer?
-    let beersPerPage: Int = 20
+    var beersPerPage: Int = 20
     var canFetchMore: Bool = true
     
     // MARK: Methods
     
     init() {
-        worker = BeerListWorker(dataSource: BeerAPI())
+        worker = BeerListWorker()
     }
     
     func getBeerList(next: Bool) {
@@ -79,6 +79,7 @@ class BeerListInteractor: BeerListBusinessLogic, BeerListDataStore {
     
     func selectBeer(index: Int) {
         selectedBeer = beers[index]
+        presenter?.presentBeerDetails()
     }
     
 }

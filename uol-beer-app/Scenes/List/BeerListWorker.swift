@@ -17,7 +17,7 @@ class BeerListWorker {
     
     var dataSource: BeerAPIDataSource
     
-    init(dataSource: BeerAPIDataSource) {
+    init(dataSource: BeerAPIDataSource = BeerAPI()) {
         self.dataSource = dataSource
     }
     

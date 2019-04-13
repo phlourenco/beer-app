@@ -14,6 +14,7 @@ import UIKit
 
 protocol BeerListPresentationLogic {
     func presentBeers()
+    func presentBeerDetails()
     func presentError(error: Error, tryAgainAction: (()->())?)
 }
 
@@ -22,6 +23,10 @@ class BeerListPresenter: BeerListPresentationLogic {
     
     func presentBeers() {
         viewController?.displayBeers()
+    }
+    
+    func presentBeerDetails() {
+        viewController?.displayBeerDetails()
     }
 
     func presentError(error: Error, tryAgainAction: (()->())?) {

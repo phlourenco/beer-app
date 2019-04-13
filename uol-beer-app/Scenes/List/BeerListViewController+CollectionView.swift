@@ -48,7 +48,6 @@ extension BeerListViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         interactor?.selectBeer(index: indexPath.row)
-        router?.routeToDetails()
     }
     
 }

@@ -1,9 +1,6 @@
 # uol-beer-app
 
-Aplicativo para o processo de seleção da UOL PagSeguro.
-
-Desenvolvido por Paulo Henrique Lima Lourenço.
-
+Aplicativo que lista cervejas.
 
 ## Screenshots
 
